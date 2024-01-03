@@ -71,9 +71,9 @@ cifar100.AugMix.Dense:
 ## cifar100.Dense: Dense runs
 cifar100.CutMix.Dense:
 	${PYTHON} main.py hydra/launcher=basic dataset=CIFAR100 optimizer=SGD masking=Dense \
-	+specific=cifar100_resnet50_dense seed=$(SEED) exp_name="Dense_CutMix" masking.density=$(DENSITY) \
+	+specific=cifar100_resnet50_dense seed=$(SEED) masking.density=$(DENSITY) \
 	wandb.entity="landskape" wandb.project="SparseAugment" wandb.use=$(USE_WANDB) \
-	dataset.augment="cutmix" $(HYDRA_FLAGS)
+	dataset.augment="cutmix" masking.mixing_value=$(MIXING) exp_name="Dense_CutMix_$(MIXING)" $(HYDRA_FLAGS)
 
 ## cifar100.Dense: Dense runs
 cifar100.RandAugment.Dense:
@@ -85,9 +85,9 @@ cifar100.RandAugment.Dense:
 ## cifar100.Dense: Dense runs
 cifar100.MixUp.Dense:
 	${PYTHON} main.py hydra/launcher=basic dataset=CIFAR100 optimizer=SGD masking=Dense \
-	+specific=cifar100_resnet50_dense seed=$(SEED) exp_name="Dense_MixUp" masking.density=$(DENSITY) \
+	+specific=cifar100_resnet50_dense seed=$(SEED) masking.density=$(DENSITY) \
 	wandb.entity="landskape" wandb.project="SparseAugment" wandb.use=$(USE_WANDB) \
-	dataset.augment="mixup" $(HYDRA_FLAGS)
+	dataset.augment="mixup" masking.mixing_value=$(MIXING) exp_name="Dense_MixUp_$(MIXING)" $(HYDRA_FLAGS)
 
 ## cifar100.Dense: Dense runs
 cifar100.ElasticTransform.Dense:
