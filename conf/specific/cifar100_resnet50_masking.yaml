@@ -15,6 +15,7 @@ masking:
   apply_when: step_end  # or step_end
   interval: 100 # Which epochs or steps to apply at
   end_when: 65918
+  mixing_value: 1 # Mixup/CutMix alpha value
 
 dataset:
   batch_size: 128

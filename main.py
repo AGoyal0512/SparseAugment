@@ -43,6 +43,7 @@ def train(
     log_interval: int = 100,
     use_wandb: bool = False,
     masking_apply_when: str = "epoch_end",
+    mixing_value: float = 1.0,
     masking_interval: int = 1,
     masking_end_when: int = -1,
     masking_print_FLOPs: bool = False,
@@ -54,8 +55,8 @@ def train(
     pbar = tqdm(total=len(train_loader), dynamic_ncols=True)
     smooth_CE = torch.nn.CrossEntropyLoss(label_smoothing=label_smoothing)
 
-    cutmix = transforms.CutMix(num_classes=100)
-    mixup = transforms.MixUp(num_classes=100)
+    cutmix = transforms.CutMix(num_classes=100, alpha=mixing_value)
+    mixup = transforms.MixUp(num_classes=100, alpha=mixing_value)
 
     for batch_idx, (data, target) in enumerate(train_loader):
         if augment == "mixup":
@@ -309,6 +310,7 @@ def single_seed_run(cfg: DictConfig) -> float:
                 "masking_apply_when": cfg.masking.apply_when,
                 "masking_interval": cfg.masking.interval,
                 "masking_end_when": cfg.masking.end_when,
+                "mixing_value": cfg.masking.mixing_value,
                 "masking_print_FLOPs": cfg.masking.get("print_FLOPs", False),
             }
 
